@@ -114,10 +114,10 @@ public class TicTacToeGUI extends JFrame {
 						
 					}
 					
-					System.out.println(pPanel1.wins);
 					pPanel1.winLoss.setText("Wins: " + pPanel1.wins +  "\nLosses: " + pPanel1.losses);
 					pPanel2.winLoss.setText("Wins: " + pPanel2.wins +  "\nLosses: " + pPanel2.losses);
-					
+					pPanel1.setName(pPanel1.getNameField().getText());
+					pPanel2.setName(pPanel2.getNameField().getText());
 						
 				}
 				

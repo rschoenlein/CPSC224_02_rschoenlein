@@ -34,7 +34,7 @@ public class PlayerPanel extends JPanel {
 		}
 		
 		//create panel objects
-		nameField = new JTextField(8);
+		setNameField(new JTextField(8));
 		nameLabel = new JLabel("Name: ");
 	
 		winLoss = new JTextArea("Wins: " + wins +  "\nLosses: " + losses);
@@ -44,9 +44,22 @@ public class PlayerPanel extends JPanel {
 		// add objects to panel
 		add(winLoss, BorderLayout.SOUTH);
 		add(nameLabel, BorderLayout.WEST);
-		add(nameField, BorderLayout.CENTER);
+		add(getNameField(), BorderLayout.CENTER);
 		
 	
 		add(title, BorderLayout.NORTH);
+	}
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String s) {
+		this.name = s;
+	}
+	public JTextField getNameField() {
+		return nameField;
+	}
+	public void setNameField(JTextField nameField) {
+		this.nameField = nameField;
 	}
 }
