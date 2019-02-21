@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TicTacToeGUI extends JFrame {
@@ -87,53 +89,85 @@ public class TicTacToeGUI extends JFrame {
 			}
 
 			else if (e.getSource() == newGameButton) {
+				// TODO error if newgame with no names
 				for (int r = 0; r < 3; r++) {
 					for (int c = 0; c < 3; c++) {
-						//gPanel.gameOver = false;
+						// gPanel.gameOver = false;
 						gPanel.grid[r][c].setEnabled(true);
 						gPanel.grid[r][c].setText("");
 					}
 				}
 
 			}
-			
-			if(e.getSource() != resetButton){
+
+			if (e.getSource() != resetButton) {
 				System.out.println(gPanel.gameOver);
-				if(gPanel.gameOver) {
-					//change status label and PlayerPanel wins/losses
+				if (gPanel.gameOver) {
+					// change status label and PlayerPanel wins/losses
 					status.setText("Game Over" + " Winner is " + gPanel.winner);
-				
-					if(gPanel.winner == "Player 1")
-					{
+
+					if (gPanel.winner == "Player 1") {
 						pPanel1.wins++;
 						pPanel2.losses++;
-					}
-					else {
+					} else {
 						pPanel2.wins++;
 						pPanel1.losses++;
-						
+
 					}
-					
-					pPanel1.winLoss.setText("Wins: " + pPanel1.wins +  "\nLosses: " + pPanel1.losses);
-					pPanel2.winLoss.setText("Wins: " + pPanel2.wins +  "\nLosses: " + pPanel2.losses);
+
+					// update wins and losses
+					pPanel1.winLoss.setText("Wins: " + pPanel1.wins + "\nLosses: " + pPanel1.losses);
+					pPanel2.winLoss.setText("Wins: " + pPanel2.wins + "\nLosses: " + pPanel2.losses);
 					pPanel1.setName(pPanel1.getNameField().getText());
 					pPanel2.setName(pPanel2.getNameField().getText());
-						
 				}
-				
-				if(gPanel.turn == 1) {
+
+				if (gPanel.turn == 1) {
 					status.setText(pPanel1.getName() + " 's turn");
-				}
-				else {
+				} else {
 					status.setText(pPanel2.getName() + " 's turn");
 				}
 			}
-			
-			
+
+			// reset stats and gameboard
 			else if (e.getSource() == resetButton) {
-				for (int r = 0; r < 3; r++) {
-					for (int c = 0; c < 3; c++) {
-						gPanel.grid[r][c].setText("");
+				
+				// output text box to ask user to confirm reset
+				JOptionPane jop = new JOptionPane();
+				int dialog = 0;
+			
+
+				if (jop.showConfirmDialog(null, "Are you sure you want to set win/loss stats to 0?", "WARNING",
+						jop.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					pPanel1.wins = 0;
+					pPanel1.losses = 0;
+					pPanel2.wins = 0;
+					pPanel2.losses = 0;
+					pPanel1.winLoss.setText("Wins: " + pPanel1.wins + "\nLosses: " + pPanel1.losses);
+					pPanel2.winLoss.setText("Wins: " + pPanel2.wins + "\nLosses: " + pPanel2.losses);
+					pPanel1.setName(pPanel1.getNameField().getText());
+					pPanel2.setName(pPanel2.getNameField().getText());
+					
+					//change game grid
+					for (int r = 0; r < 3; r++) {
+						for (int c = 0; c < 3; c++) {
+
+								gPanel.grid[r][c].setEnabled(false);
+								gPanel.grid[r][c].setText("");
+						
+						}
+					}
+					
+
+					if(!(jop == null)) {
+						jop.setVisible(false);
+					}
+						
+				} 
+				else {
+					if(!(jop == null)) {
+						jop.setVisible(false);
+
 					}
 				}
 

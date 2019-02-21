@@ -10,55 +10,58 @@ import javax.swing.*;
 public class PlayerPanel extends JPanel {
 	private JLabel nameLabel, title; // To display labels and player info
 	public JTextArea winLoss;
-	private JTextField nameField; //player name
+	private JTextField nameField; // player name
 	public int wins, losses;
 	private String name;
-	private int playerNumber;//to determine if player one or tow
+	private int playerNumber;// to determine if player one or tow
+
 	/**
 	 * Constructor
 	 */
 
 	public PlayerPanel(int playerNumber, String name) {
+		
 		setLayout(new BorderLayout());
 
 		this.playerNumber = playerNumber;
 		this.name = name;
 		wins = 0;
 		losses = 0;
-		
-		if(playerNumber == 1) {
+
+		if (playerNumber == 1) {
 			title = new JLabel("Player 1(X)");
-		}
-		else {
+		} else {
 			title = new JLabel("Player 2(0)");
 		}
-		
-		//create panel objects
+
+		// create panel objects
 		setNameField(new JTextField(8));
 		nameLabel = new JLabel("Name: ");
-	
-		winLoss = new JTextArea("Wins: " + wins +  "\nLosses: " + losses);
+
+		winLoss = new JTextArea("Wins: " + wins + "\nLosses: " + losses);
 		winLoss.setEditable(false);
-		
-		
+
 		// add objects to panel
 		add(winLoss, BorderLayout.SOUTH);
 		add(nameLabel, BorderLayout.WEST);
 		add(getNameField(), BorderLayout.CENTER);
-		
-	
+
 		add(title, BorderLayout.NORTH);
 	}
+
+	//getters and setters for name and nameField
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String s) {
 		this.name = s;
 	}
+
 	public JTextField getNameField() {
 		return nameField;
 	}
+
 	public void setNameField(JTextField nameField) {
 		this.nameField = nameField;
 	}
