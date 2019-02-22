@@ -49,7 +49,7 @@ public class TicTacToeGUI extends JFrame {
 		addGameButtons();
 
 		// Pack the contents of the window and display it.
-		pack();
+		//pack();
 		setVisible(true);
 	}
 
@@ -68,15 +68,15 @@ public class TicTacToeGUI extends JFrame {
 		bg.add(newGameButton);
 		bg.add(resetButton);
 
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(newGameButton, BorderLayout.LINE_START);
-		panel.add(resetButton, BorderLayout.CENTER);
-		panel.add(exitButton, BorderLayout.LINE_END);
+		JPanel temp = new JPanel();
+		temp.setLayout(new BorderLayout());
+		temp.add(newGameButton, BorderLayout.LINE_START);
+		temp.add(resetButton, BorderLayout.CENTER);
+		temp.add(exitButton, BorderLayout.LINE_END);
 
 		status = new JLabel("Welcome to Tic Tac Toe");
-		panel.add(status, BorderLayout.SOUTH);
-		add(panel, BorderLayout.SOUTH);
+		temp.add(status, BorderLayout.SOUTH);
+		add(temp, BorderLayout.SOUTH);
 
 		return bg;
 	}
@@ -90,18 +90,30 @@ public class TicTacToeGUI extends JFrame {
 
 			else if (e.getSource() == newGameButton) {
 				// TODO error if newgame with no names
+				System.out.println(pPanel1.getName() + pPanel2.getName() + gPanel.turn);
+				if(pPanel1.getName().equals("Player 1") || pPanel2.getName() == "Player 2") {
+					System.out.println("YES");
+					/*JOptionPane jop = new JOptionPane("ErrorMsg", JOptionPane.ERROR_MESSAGE); 
+                                        jop.showConfirmDialog(null, "ErrorMsg", "WARNING",
+						JOptionPane.ERROR_MESSAGE);   
+					JDialog dialog = jop.createDialog("Must have names entered");*/
+                                        JOptionPane optionPane = new JOptionPane("Illegal Names", JOptionPane.ERROR_MESSAGE);    
+                                        JDialog dialog = optionPane.createDialog("Failure");
+                                        dialog.setAlwaysOnTop(true);
+                                        dialog.setVisible(true);
+				}
+                                else{
 				for (int r = 0; r < 3; r++) {
 					for (int c = 0; c < 3; c++) {
 						// gPanel.gameOver = false;
 						gPanel.grid[r][c].setEnabled(true);
 						gPanel.grid[r][c].setText("");
 					}
-				}
-
+                                    }
+                                }
 			}
 
 			if (e.getSource() != resetButton) {
-				System.out.println(gPanel.gameOver);
 				if (gPanel.gameOver) {
 					// change status label and PlayerPanel wins/losses
 					status.setText("Game Over" + " Winner is " + gPanel.winner);
@@ -115,11 +127,7 @@ public class TicTacToeGUI extends JFrame {
 
 					}
 
-					// update wins and losses
-					pPanel1.winLoss.setText("Wins: " + pPanel1.wins + "\nLosses: " + pPanel1.losses);
-					pPanel2.winLoss.setText("Wins: " + pPanel2.wins + "\nLosses: " + pPanel2.losses);
-					pPanel1.setName(pPanel1.getNameField().getText());
-					pPanel2.setName(pPanel2.getNameField().getText());
+					gPanel.gameOver = false;
 				}
 
 				if (gPanel.turn == 1) {
@@ -172,6 +180,12 @@ public class TicTacToeGUI extends JFrame {
 				}
 
 			}
+			
+			// update wins and losses
+			pPanel1.winLoss.setText("Wins: " + pPanel1.wins + "\nLosses: " + pPanel1.losses);
+			pPanel2.winLoss.setText("Wins: " + pPanel2.wins + "\nLosses: " + pPanel2.losses);
+			pPanel1.setName(pPanel1.getNameField().getText());
+			pPanel2.setName(pPanel2.getNameField().getText());
 		}
 	}
 

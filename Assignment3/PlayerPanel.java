@@ -35,7 +35,8 @@ public class PlayerPanel extends JPanel {
 		}
 
 		// create panel objects
-		setNameField(new JTextField(8));
+		nameField = new JTextField(8);
+		nameField.setText(name);
 		nameLabel = new JLabel("Name: ");
 
 		winLoss = new JTextArea("Wins: " + wins + "\nLosses: " + losses);
