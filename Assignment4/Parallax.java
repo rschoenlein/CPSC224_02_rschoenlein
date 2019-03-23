@@ -1,3 +1,12 @@
+/*
+
+Homework 4
+
+Due Date: 3/25/2019
+
+Names: Ryan Shoenlein, Ben McDonald
+
+*/
 package Assignment4;
 
 import java.applet.Applet;
