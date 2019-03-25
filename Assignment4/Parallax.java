@@ -15,7 +15,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import java.math.*;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -147,5 +146,3 @@ public class Parallax extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		repaint();
 	}
-
-}
