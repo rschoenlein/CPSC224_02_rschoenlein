@@ -1,37 +1,51 @@
 /*
-
 Homework 4
-
 Due Date: 3/25/2019
-
-Names: Ryan Shoenlein, Ben McDonald
-
+Names: Ryan Schoenlein, Ben McDonald
 */
-package Assignment4;
 
-import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-import javax.swing.Timer;
+import java.math.*;
 
-public class Parallax extends Applet implements ActionListener, MouseListener {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-	public void Parrallax() {
+public class Parallax extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private double oldX;
+	private double oldY;
+	private JPanel panel;
+        private double offsetX = -100;
+        private double offsetY = -100;
+        private String imageName;
+
+	public Parallax() {
 		// set background Color
+		setSize(500, 500);
 		setBackground(Color.CYAN);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                 setResizable(false);
+                 
+                 imageName = "parallax.png";
 
-		// timer which sets interval to update screen
-		Timer t = new Timer(25, this);
-		t.setInitialDelay(0);
-		t.start();
-		// make applet listen to mouse and actions
-		addMouseListener(this);
+		panel = new JPanel();
+		panel.addMouseListener(new MyMouseListener());
+		panel.addMouseMotionListener(new MyMouseListener());
 
+		add(panel);
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {
@@ -39,22 +53,94 @@ public class Parallax extends Applet implements ActionListener, MouseListener {
 	}
 
 	// GRAPHICS
-	// graphics methods, double buffers by painting everything onto image then
-	// drawing it to screen
 	public void paint(Graphics g) {
-		g.drawString("Motion Parallax Scene", 500, 500);
-		g.setColor(Color.red);  
-		g.drawString("Welcome",50, 50);  
-		g.drawLine(20,30,20,300);  
-		g.drawRect(70,100,30,30);  
-		g.fillRect(170,100,30,30);  
-		g.drawOval(70,200,30,30);  
-		  
-		g.setColor(Color.pink);  
-		g.fillOval(170,200,30,30);  
-		g.drawArc(90,150,30,30,30,270);  
-		g.fillArc(270,150,30,30,0,180);  
+            super.paint(g);
+            Image image = Toolkit.getDefaultToolkit().getImage(imageName);
+            g.drawImage(image,(int)offsetX,(int)offsetY,this);
 	}
+
+
+	private class MyMouseListener implements MouseListener, MouseMotionListener {
+
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			if(imageName == "parallax.png")
+                            imageName = "parallax2.png";
+                        else
+                            imageName = "parallax.png";
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+                    oldX = offsetX;
+                    oldY = offsetY;
+                        offsetX = e.getX();
+                        offsetY = e.getY();
+                        repaint();
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+                        offsetX = oldX;
+                        offsetY = oldY;
+                        repaint();
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+                        if(imageName == "parallax.png")
+                            imageName = "parallax2.png";
+                        else
+                            imageName = "parallax.png";
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+                        if(imageName == "parallax.png")
+                            imageName = "parallax2.png";
+                        else
+                            imageName = "parallax.png";
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+                    double numX = e.getX();
+                    numX *= .5;
+                    if(e.getX() < 250)
+                    {
+                        offsetX = numX - 150;
+                        repaint();
+                    }
+
+                    if(e.getX() > 250)
+                    {
+                        offsetX = -numX + 100;
+                        repaint();
+                    }
+
+
+                    if(e.getY() > 425)
+                    {
+                        offsetY = -e.getY() + 350;
+                        repaint();
+                    }
+
+                    if(e.getY() < 75)
+                    {
+                        offsetY = -e.getY();
+                        repaint();
+                    }
+		}
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -62,33 +148,4 @@ public class Parallax extends Applet implements ActionListener, MouseListener {
 		repaint();
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 }
