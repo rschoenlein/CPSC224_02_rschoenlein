@@ -41,7 +41,6 @@ public class Parallax extends JFrame implements ActionListener{
 
 	public Parallax() {
 		setSize(500, 500);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//create panel and add listeners
 		panel = new JPanel();
@@ -227,7 +226,6 @@ public class Parallax extends JFrame implements ActionListener{
 	        oldY = e.getY();
 		}
 	}
-
 
 	@Override
 	//update bird x and y on every timer interval
